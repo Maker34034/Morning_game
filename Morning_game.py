@@ -1,79 +1,14 @@
 import pygame
 import sys
+import pygame_menu
 
 # Инициализация Pygame
 pygame.init()
 clock = pygame.time.Clock()
+screen = pygame.display.set_mode((918, 630))
+pygame.display.set_caption("This_is_The_Morning_game")
 
-# Функция первой сцены
-def sn1():
-    screen = pygame.display.set_mode((918, 630))  # 1818, 1362 or 918, 662
-
-    player_walk_right = [
-        pygame.image.load('pl_ra/player_1.png'),
-        pygame.image.load('pl_ra/player_2.png'),
-        pygame.image.load('pl_ra/player_3.png'),
-        pygame.image.load('pl_ra/player_4.png')
-    ]
-
-    player_walk_left = [
-        pygame.image.load('pl_le/player_1.png'),
-        pygame.image.load('pl_le/player_2.png'),
-        pygame.image.load('pl_le/player_3.png'),
-        pygame.image.load('pl_le/player_4.png')
-    ]
-
-    player_stay = pygame.image.load('pl_ra/player_1.png')
-    bacraund1 = pygame.image.load('img/Locations/№1 .jpg').convert()
-
-    player_seed = 7
-    player_x = 100
-    player_y = 400
-
-    player_anim_count = 0
-
-    flag = True
-    while flag:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()  # Завершение программы
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_3:  # Нажмите "2", чтобы перейти к сцене 2
-                    return  # Завершить эту функцию и перейти к следующей сцене
-                if event.key == pygame.K_2:  
-                    return  
-                if event.key == pygame.K_4:  
-                    return                 
-
-        screen.blit(bacraund1, (0, 0))
-        player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
-
-        keys = pygame.key.get_pressed()
-
-        if keys[pygame.K_LEFT]:
-            screen.blit(player_walk_left[player_anim_count], (player_x, player_y))
-        elif keys[pygame.K_RIGHT]:
-            screen.blit(player_walk_right[player_anim_count], (player_x, player_y))
-        else:
-            screen.blit(player_stay, (player_x, player_y))
-
-        if keys[pygame.K_LEFT] and player_x > 10:
-            player_x -= player_seed
-        elif keys[pygame.K_RIGHT] and player_x < 860:
-            player_x += player_seed
-
-        if player_anim_count == 3:
-            player_anim_count = 0
-        else:
-            player_anim_count += 1
-
-        pygame.display.update()
-        clock.tick(15)
-
-# Функция второй сцены
-def sn2():
-    screen = pygame.display.set_mode((918, 630))  # 1818, 1362 or 918, 662
+def sn1(): # Функция первой сцены
 
     player_walk_right = [
         pygame.image.load('pl_ra/player_1.png'),
@@ -105,12 +40,10 @@ def sn2():
                 pygame.quit()
                 sys.exit()  # Завершение программы
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:  # Нажмите "1", чтобы перейти к сцене 1
+                if event.key == pygame.K_2:  # Нажмите "2", чтобы перейти к сцене 2
                     return  # Завершить эту функцию и перейти к следующей сцене
                 if event.key == pygame.K_3:  
-                    return                
-                if event.key == pygame.K_4:  
-                    return                 
+                    return                             
 
         screen.blit(bacraund2, (0, 0))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
@@ -137,8 +70,7 @@ def sn2():
         pygame.display.update()
         clock.tick(15)
         
-def sn3():
-    screen = pygame.display.set_mode((918, 630))  # 1818, 1362 or 918, 662
+def sn2():
 
     player_walk_right = [
         pygame.image.load('pl_ra/player_1.png'),
@@ -172,12 +104,9 @@ def sn3():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:  # Нажмите "3", чтобы перейти к сцене 3
                     return  # Завершить эту функцию и перейти к следующей сцене  
-                if event.key == pygame.K_2:  
+                if event.key == pygame.K_3:  
                     return
-                if event.key == pygame.K_4:  
-                    return                 
-                
-
+                 
         screen.blit(bacraund2, (0, 0))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
 
@@ -203,10 +132,8 @@ def sn3():
         pygame.display.update()
         clock.tick(15)
 
-
-def sn4():
-    screen = pygame.display.set_mode((918, 630))  # 1818, 1362 or 918, 662
-
+def sn3():
+    
     player_walk_right = [
         pygame.image.load('pl_ra/player_1.png'),
         pygame.image.load('pl_ra/player_2.png'),
@@ -240,11 +167,8 @@ def sn4():
                 if event.key == pygame.K_1:  # Нажмите "3", чтобы перейти к сцене 3
                     return  # Завершить эту функцию и перейти к следующей сцене  
                 if event.key == pygame.K_2:  
-                    return
-                if event.key == pygame.K_3:  
-                    return                 
+                    return          
                 
-
         screen.blit(bacraund2, (0, 0))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
 
@@ -269,10 +193,18 @@ def sn4():
 
         pygame.display.update()
         clock.tick(15)
-        
-# Основной цикл программы
-while True:
-    sn1()  # Начинаем с первой сцены
-    sn2()  # Затем переходим ко второй сцене
-    sn3()
-    sn4()
+
+def game():
+    while True:
+        sn1()  # Начинаем с первой сцены
+        sn2()  # Затем переходим ко второй сцене
+        sn3()
+
+menu = pygame_menu.Menu('Welcome', 918, 630,
+                       theme=pygame_menu.themes.THEME_GREEN)
+
+menu.add.text_input('', default='Morning_game') 
+menu.add.button('Play', game)
+menu.add.button('Quit', pygame_menu.events.EXIT)
+
+menu.mainloop(screen)
