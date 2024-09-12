@@ -8,6 +8,8 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((918, 630))
 pygame.display.set_caption("This_is_The_Morning_game")
 
+
+
 def sn1(): # Функция первой сцены
 
     player_walk_right = [
@@ -32,6 +34,9 @@ def sn1(): # Функция первой сцены
     player_y = 400
 
     player_anim_count = 0
+    
+    sur_tast = pygame.Surface((50, 20))
+    sur_tast.fill('Red')    
 
     flag = True
     while flag:
@@ -46,8 +51,16 @@ def sn1(): # Функция первой сцены
                     return                             
 
         screen.blit(bacraund2, (0, 0))
+        #screen.blit(sur_tast, (863, 400))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
-
+        
+        transition_1 = sur_tast.get_rect(topleft=(863, 400))
+        transition_2 = sur_tast.get_rect(topleft=(9, 400))
+        
+        
+        if player_rect.colliderect(transition_1):
+            sn2()
+        
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
@@ -94,6 +107,9 @@ def sn2():
     player_y = 400
 
     player_anim_count = 0
+    
+    sur_tast = pygame.Surface((50, 20))
+    sur_tast.fill('Red')    
 
     flag = True
     while flag:
@@ -109,6 +125,14 @@ def sn2():
                  
         screen.blit(bacraund2, (0, 0))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
+        
+        transition_1 = sur_tast.get_rect(topleft=(863, 400))
+        transition_2 = sur_tast.get_rect(topleft=(9, 400))        
+        
+        if player_rect.colliderect(transition_1):
+            sn3()
+        elif player_rect.colliderect(transition_2):
+            sn1()            
 
         keys = pygame.key.get_pressed()
 
@@ -156,6 +180,9 @@ def sn3():
     player_y = 400
 
     player_anim_count = 0
+    
+    sur_tast = pygame.Surface((50, 20))
+    sur_tast.fill('Red')        
 
     flag = True
     while flag:
@@ -171,6 +198,11 @@ def sn3():
                 
         screen.blit(bacraund2, (0, 0))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
+        
+        transition_2 = sur_tast.get_rect(topleft=(9, 400))
+        
+        if player_rect.colliderect(transition_2):
+            sn2()        
 
         keys = pygame.key.get_pressed()
 
@@ -201,7 +233,7 @@ def game():
         sn3()
 
 menu = pygame_menu.Menu('Welcome', 918, 630,
-                       theme=pygame_menu.themes.THEME_GREEN)
+                       theme=pygame_menu.themes.THEME_DARK)
 
 menu.add.text_input('', default='Morning_game') 
 menu.add.button('Play', game)
