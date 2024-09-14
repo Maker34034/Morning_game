@@ -1,14 +1,14 @@
 import pygame
 import sys
 import pygame_menu
+from pygame_menu import *
 
 # Инициализация Pygame
 pygame.init()
+pygame.mixer.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((918, 630))
 pygame.display.set_caption("This_is_The_Morning_game")
-
-
 
 def sn1(): # Функция первой сцены
 
@@ -51,7 +51,6 @@ def sn1(): # Функция первой сцены
                     return                             
 
         screen.blit(bacraund2, (0, 0))
-        #screen.blit(sur_tast, (863, 400))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
         
         transition_1 = sur_tast.get_rect(topleft=(863, 400))
@@ -227,16 +226,30 @@ def sn3():
         clock.tick(15)
 
 def game():
+    sound1 = pygame.mixer.Sound('song/Music/Morring city.mp3')
+    sound1.set_volume(0.1)
+    sound1.play()
+    
     while True:
         sn1()  # Начинаем с первой сцены
         sn2()  # Затем переходим ко второй сцене
         sn3()
 
-menu = pygame_menu.Menu('Welcome', 918, 630,
-                       theme=pygame_menu.themes.THEME_DARK)
 
+font = pygame_menu.font.FONT_MUNRO
+menubar = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
+    
+mytheme = Theme(background_color=(0, 0, 0, 0),
+                title_background_color=(4, 47, 126), 
+                widget_font=font,
+                title_bar_style=menubar)
+
+menu = pygame_menu.Menu('Welcome', 918, 630, 
+                        theme=mytheme)
+
+    
 menu.add.text_input('', default='Morning_game') 
-menu.add.button('Play', game)
+menu.add.button('Play', game) 
 menu.add.button('Quit', pygame_menu.events.EXIT)
-
-menu.mainloop(screen)
+    
+menu.mainloop(screen)    
