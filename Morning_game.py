@@ -198,10 +198,13 @@ def sn3():
         screen.blit(bacraund2, (0, 0))
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
         
-        transition_2 = sur_tast.get_rect(topleft=(9, 400))
+        transition_1 = sur_tast.get_rect(topleft=(863, 400))
+        transition_2 = sur_tast.get_rect(topleft=(9, 400))        
         
-        if player_rect.colliderect(transition_2):
-            sn2()        
+        if player_rect.colliderect(transition_1):
+            sn2()
+        elif player_rect.colliderect(transition_2):
+            sn_close()             
 
         keys = pygame.key.get_pressed()
 
@@ -224,6 +227,86 @@ def sn3():
 
         pygame.display.update()
         clock.tick(15)
+
+
+def sn_close():
+    
+    bacraund = pygame.image.load('img/Locations/Close.jpg').convert()
+
+    player_seed = 7
+    keys_x = 1
+    keys_y = 1
+
+    player_anim_count = 0
+    
+    sur_tast = pygame.Surface((50, 20))
+    sur_tast.fill('Red')        
+    
+    keys = pygame.image.load('img/1726509240830.png')
+
+    flag = True
+    while flag:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit() 
+                
+        screen.blit(bacraund, (0, 0))
+        #screen.blit(keys, (0, 0))
+        keys_rect = keys.get_rect(topleft=(keys_x, keys_y))
+        
+        #transition_2 = sur_tast.get_rect(topleft=(9, 400))
+        
+        #if keys_rect.colliderect(transition_2):
+        #    sn_open()        
+
+        mouse = pygame.mouse.get_pressed()
+        pos = pygame.mouse.get_pos()
+        
+        if mouse[0]:
+            keys_x = pos
+            keys_y = pos
+            screen.blit(keys, (keys_x, keys_y))
+            
+        
+
+        #if player_anim_count == 3:
+        #    player_anim_count = 0
+        #else:
+        #    player_anim_count += 1
+
+        pygame.display.update()
+        clock.tick(15)
+        
+        
+def sn_open():
+    
+    bacraund = pygame.image.load('img/Locations/Open.jpg').convert()
+
+    flag = True
+    while flag:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()     
+                
+        screen.blit(bacraund, (0, 0))
+ 
+        pygame.display.update()
+        clock.tick(15)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def game():
     sound1 = pygame.mixer.Sound('song/Music/Morring city.mp3')
