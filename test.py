@@ -2,16 +2,15 @@ import pygame
 import sys
 import pygame_menu
 from pygame_menu import *
+import imageio
 
 pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((918, 630))
 pygame.display.set_caption("Keys_test")
-
-def sn_close():
     
-    background = pygame.image.load('img/Locations/Close.jpg').convert()
+def sn_close():
 
     player_seed = 7
     keys_x = 1
@@ -23,6 +22,7 @@ def sn_close():
     sur_tast = pygame.Surface((70, 40))
     sur_tast.fill('Red')        
     
+    background = pygame.image.load('img/Locations/Close.jpg').convert()
     key = pygame.image.load('img/Original_keys.png')
 
     flag = True
@@ -30,8 +30,8 @@ def sn_close():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                sys.exit()
-            
+                sys.exit()          
+              
             keys = pygame.key.get_pressed()
             
             if keys[pygame.K_7]:
@@ -58,6 +58,30 @@ def sn_close():
         pygame.display.update()
         clock.tick(60)
 
+def video_2():
+    # Загрузка видео
+    video_path = 'V_1_out.mp4'  # Укажите путь к вашему видео файлу
+    video_reader = imageio.get_reader(video_path)
+    
+    # Основной цикл
+    running = True
+    for frame in video_reader:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+    
+        # Конвертация кадра в формат, понятный Pygame
+        frame_surface = pygame.image.frombuffer(frame.tobytes(), frame.shape[1::-1], "RGB")
+    
+        # Отображение кадра на экране
+        screen.blit(frame_surface, (0, 0))
+        pygame.display.flip()
+    
+        # Задержка для соответствия FPS вид    ео (пример: 30 FPS)
+        pygame.time.delay(int(1000 / 30))
+    
+
+    
 
 def sn_open():
     
@@ -74,13 +98,42 @@ def sn_open():
 
         pygame.display.update()
         clock.tick(15)
+        video_2()
 
 
+    
 def game():
     while True:
         sn_close()  # Начинаем с первой сцены
         sn_open()  # Затем переходим ко второй сцене
-
+        
+def after_video():
+    game()
+    
+def video():
+    # Загрузка видео
+    video_path = 'V_2_out.mp4'  # Укажите путь к вашему видео файлу
+    video_reader = imageio.get_reader(video_path)
+    
+    # Основной цикл
+    running = True
+    for frame in video_reader:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+    
+        # Конвертация кадра в формат, понятный Pygame
+        frame_surface = pygame.image.frombuffer(frame.tobytes(), frame.shape[1::-1], "RGB")
+    
+        # Отображение кадра на экране
+        screen.blit(frame_surface, (0, 0))
+        pygame.display.flip()
+    
+        # Задержка для соответствия FPS видео (пример: 30 FPS)
+        pygame.time.delay(int(1000 / 30))
+    
+    # Вызываем функцию после завершения видео
+    after_video()    
 
 font = pygame_menu.font.FONT_MUNRO
 menubar = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
@@ -94,7 +147,7 @@ menu = pygame_menu.Menu('Welcome', 918, 630,
                         theme=mytheme)
 
 menu.add.text_input('', default='Morning_game') 
-menu.add.button('Play', game) 
+menu.add.button('Play', video) 
 menu.add.button('Quit', pygame_menu.events.EXIT)
 
 menu.mainloop(screen)
