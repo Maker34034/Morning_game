@@ -8,7 +8,7 @@ pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((918, 630))
-pygame.display.set_caption("Keys_test")
+pygame.display.set_caption("Menu_test")
     
 def sn_close():
 
@@ -135,13 +135,38 @@ def video():
     # Вызываем функцию после завершения видео
     after_video()    
 
+
+# Загрузка фонового изображения
+background_image = pygame.image.load('img/Menu_fon.jpg')
+    
+# Функция для отрисовки фонового изображения
+def draw_background():
+    screen.blit(background_image, (0, 0))
+    
+
+# Задание цветов
+button_background_color = (144, 238, 144)  # Цвет фона кнопок
+button_hover_background_color = (0, 250, 154) # Цвет фона кнопок при наведении
+button_text_color = (255, 255, 255)  # Белый цвет текста
+button_hover_color = (0, 0, 0)   # Цвет текста при наведении
+
 font = pygame_menu.font.FONT_MUNRO
 menubar = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
 
-mytheme = Theme(background_color=(0, 0, 0, 0),
+# Загрузка фонового изображения
+myimage = pygame_menu.baseimage.BaseImage(
+    image_path='img/Menu_fon.jpg',  
+    drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL
+)
+
+mytheme = Theme(background_color=myimage, #(0, 0, 0, 0)
                 title_background_color=(4, 47, 126), 
                 widget_font=font,
-                title_bar_style=menubar)
+                widget_font_color=button_text_color,
+                title_bar_style=menubar,
+                widget_background_color=button_background_color,
+                widget_margin=(10, 10))
+
 
 menu = pygame_menu.Menu('Welcome', 918, 630, 
                         theme=mytheme)
@@ -151,3 +176,5 @@ menu.add.button('Play', video)
 menu.add.button('Quit', pygame_menu.events.EXIT)
 
 menu.mainloop(screen)
+menu.update(pygame.event.get())
+menu.draw(screen)
