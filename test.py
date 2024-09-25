@@ -60,7 +60,7 @@ def sn_close():
 
 def video_2():
     # Загрузка видео
-    video_path = 'V_1_out.mp4'  # Укажите путь к вашему видео файлу
+    video_path = 'V_3.mp4'  # Укажите путь к вашему видео файлу
     video_reader = imageio.get_reader(video_path)
     
     # Основной цикл
