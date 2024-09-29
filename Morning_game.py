@@ -56,7 +56,7 @@ def sn1(player_x, player_y): # Функция первой сцены
         
         
         if player_rect.colliderect(transition_1):
-            sn2()
+            sn2(100, 400)
         
         keys = pygame.key.get_pressed()
 
@@ -80,7 +80,7 @@ def sn1(player_x, player_y): # Функция первой сцены
         pygame.display.update()
         clock.tick(15)
         
-def sn2():
+def sn2(player_x, player_y):
 
     player_walk_right = [
         pygame.image.load('pl_ra/player_1.png'),
@@ -100,8 +100,6 @@ def sn2():
     bacraund2 = pygame.image.load('img/Locations/№3 .jpg').convert()
 
     player_seed = 7
-    player_x = 100
-    player_y = 400
 
     player_anim_count = 0
     
@@ -127,9 +125,9 @@ def sn2():
         transition_2 = sur_tast.get_rect(topleft=(9, 400))        
         
         if player_rect.colliderect(transition_1):
-            sn3()
+            sn3(100, 400)
         elif player_rect.colliderect(transition_2):
-            sn1()            
+            sn1(100, 400)            
 
         keys = pygame.key.get_pressed()
 
@@ -153,7 +151,7 @@ def sn2():
         pygame.display.update()
         clock.tick(15)
 
-def sn3():
+def sn3(player_x, player_y):
     
     player_walk_right = [
         pygame.image.load('pl_ra/player_1.png'),
@@ -173,8 +171,6 @@ def sn3():
     bacraund2 = pygame.image.load('img/Locations/№4 .jpg').convert()
 
     player_seed = 7
-    player_x = 100
-    player_y = 400
 
     player_anim_count = 0
     
@@ -200,7 +196,7 @@ def sn3():
         transition_2 = sur_tast.get_rect(topleft=(9, 400))        
         
         if player_rect.colliderect(transition_2):
-            sn2()
+            sn2(100, 400)
         #elif player_rect.colliderect(transition_2):
         #    sn_close()             
 
@@ -229,8 +225,8 @@ def sn3():
 def game():
     while True:
         sn1(100, 400)  # Начинаем с первой сцены
-        sn2()  # Затем переходим ко второй сцене
-        sn3()
+        sn2(100, 400)  # Затем переходим ко второй сцене
+        sn3(100, 400)
 
 
 font = pygame_menu.font.FONT_MUNRO
