@@ -52,7 +52,7 @@ def menu2():
                             theme=mytheme) 
     
     menu.add.text_input('', default='Morning_game') 
-    menu.add.selector('Difficulty :', [('Hard', 1), ('Easy', 2)], onchange=set_difficulty)
+    menu.add.selector('Difficulty :', [('Chapter 1', 1), ('Chapter 2', 2)], onchange=set_difficulty)
     menu.add.button('Play',) 
     menu.add.button('Quit', pygame_menu.events.EXIT)
     

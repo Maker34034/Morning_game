@@ -15,7 +15,7 @@ v_3_music = 'song/Music/V_3.mp3'
 
 icon = pygame.image.load('img/Main_icon.png')           # Загрузка изображения для значка
 pygame.display.set_icon(icon)                           # Устанавливаем значок
-pygame.display.set_caption("This_is_The_Morning_game 30.09.2024.20:08")
+pygame.display.set_caption("This_is_The_Morning_game 28.10.2024.20:53")
 
 def sn1(player_x, player_y): # Функция первой сцены
 
@@ -59,9 +59,12 @@ def sn1(player_x, player_y): # Функция первой сцены
         player_rect = player_walk_left[0].get_rect(topleft=(player_x, player_y))
         
         transition_1 = sur_tast.get_rect(topleft=(863, 500))
+        transition_2 = sur_tast.get_rect(topleft=(9, 500))
         
         if player_rect.colliderect(transition_1):
             sn2(100, 400)
+        elif player_rect.colliderect(transition_2):
+            menu()
         
         keys = pygame.key.get_pressed()
 
@@ -130,7 +133,7 @@ def sn2(player_x, player_y):
         transition_2 = sur_tast.get_rect(topleft=(9, 400))        
         
         if player_rect.colliderect(transition_1):
-            video_2()
+            game_2()
         elif player_rect.colliderect(transition_2):
             sn1(800, 500)            
 
@@ -154,28 +157,7 @@ def sn2(player_x, player_y):
             player_anim_count += 1
 
         pygame.display.update()
-        clock.tick(15)
-
-
-def video_2():
- 
-        video_path = 'V_2_out.mp4'                      # Загрузка видео 
-        video_reader = imageio.get_reader(video_path)
-        
-        running = True                                  # Основной цикл
-        for frame in video_reader:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-            
-            frame_surface = pygame.image.frombuffer(frame.tobytes(), frame.shape[1::-1], "RGB")
-        
-            screen.blit(frame_surface, (0, 0))         # Отображение кадра на экране
-            pygame.display.flip()
-            
-            pygame.time.delay(int(1000 / 30))          # Задержка для соответствия FPS видео (пример: 30 FPS)
-        
-        game_2()      
+        clock.tick(15)  
 
 
 def sn3(player_x, player_y):
@@ -296,7 +278,7 @@ def sn_close():
     player_anim_count = 0
     
     sur_tast = pygame.Surface((70, 40))
-    sur_tast.fill('Red')        
+    sur_tast.fill('Red')     
     
     background = pygame.image.load('img/Locations/Close.jpg').convert()
     key = pygame.image.load('img/Original_keys.png')
@@ -319,6 +301,7 @@ def sn_close():
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if sur_tast.get_rect(topleft=(350, 450)).collidepoint(mouse_x, mouse_y):
                     sn_open()  # Переход на следующую сцену
+                                   
 
         screen.blit(background, (0, 0)) 
         key_rect = key.get_rect(topleft=(100, 100))
@@ -389,11 +372,10 @@ def menu():
     font = pygame_menu.font.FONT_MUNRO
     menubar = pygame_menu.widgets.MENUBAR_STYLE_TITLE_ONLY_DIAGONAL
     
-    # Загрузка фонового изображения
     myimage = pygame_menu.baseimage.BaseImage(
         image_path='img/Menu_fon.jpg',  
         drawing_mode=pygame_menu.baseimage.IMAGE_MODE_FILL
-    )
+    ) # Загрузка фонового изображения
     
     mytheme = Theme(background_color=myimage,
                     title_background_color=(4, 47, 126), 
@@ -404,8 +386,8 @@ def menu():
                     widget_margin=(10, 10))
     
     
-    menu = pygame_menu.Menu('Welcome to the alpha 30.09.2024.20:08', 918, 630, 
-                            theme=mytheme)
+    menu = pygame_menu.Menu('Welcome to the alpha 2', 918, 630, 
+                            theme=mytheme) # 28.10.2024.20:53
     
     menu.add.text_input('', default='Morning_game') 
     menu.add.button('Play', video_1) 
